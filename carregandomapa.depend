@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1602798007 source:c:\users\fidel\onedrive\documentos\carregandomaparaylib\carregandomapa\main.c
+	<stdio.h>
+	<stdlib.h>
+	<raylib.h>
+	<string.h>
+	<math.h>
+	<time.h>
+
+1603062706 source:c:\users\fidel\onedrive\documentos\carregandomapa\main.c
+	<stdio.h>
+	<stdlib.h>
+	<raylib.h>
+	<string.h>
+	<math.h>
+	<time.h>
+
