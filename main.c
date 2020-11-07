@@ -127,6 +127,28 @@ void carregamento_bau(Tbaus* Pbaus, int* Pitem_bau, int qte_baus)
         }
     }
 }
+void carregamento_inimigos(Tinimigo* Pinimigos, Vector2* position_inimigos, Texture2D imagem1, Texture2D imagem2, int qte_inimigos)
+{
+    int contador = 0;
+    for(contador, Pinimigos,position_inimigos; contador < qte_inimigos; contador++,Pinimigos++, position_inimigos++)
+    {
+        Pinimigos->dimen = (Rectangle) {position_inimigos->x,position_inimigos->y,tam_width,tam_height};
+        Pinimigos->vivo = true;
+        if(contador % 2 == 0)
+        {
+            Pinimigos->deslocamentox = 6;
+            Pinimigos->deslocamentoy = 0;
+            Pinimigos->imagem = imagem1;
+        }
+        else
+        {
+            Pinimigos->deslocamentox = 0;
+            Pinimigos->deslocamentoy = 6;
+            Pinimigos->imagem = imagem2;
+        }
+    }
+}
+
 int main()
 {
     clock_t t = clock();
@@ -226,17 +248,6 @@ int main()
                             {211,337},
                             {794,17}};
 
-    Vector2 positions_baus[] =  {{64,523},
-                                {115,156},
-                                {841,200},
-                                {358,526},
-                                {840,613},
-                                {453,248},
-                                {18,524},
-                                {673,248},
-                                {553,434},
-                                {745,20},
-                                {405,18}};
 
      Vector2 positions_inim[] = {   {552,65},
                                     {177,430},
@@ -254,16 +265,16 @@ int main()
                                     {864,114},
                                     {67,247}};
      int qte_inimigos = sizeof(positions_inim)/8;
-     int baus_itens[] = {1,1,2,2,2,3,3,3,1,2,3,2};
+
     //1-chave
     //2-monstro
     //3-vida
 
     //Leitura de imagens
     int tam = sizeof(positions)/8;
-    int tam_bau = sizeof(positions_baus)/8;
+
     Tobstaculos obstaculos[tam];
-    Tbaus bau[tam_bau];
+
 
     Texture2D parede_obstaculo1 = LoadTexture("obstaculo.png");
 
@@ -300,10 +311,7 @@ int main()
                             LoadTexture("./bomba/explosao4.png")};
     Texture2D bala = LoadTexture("./bomba/bomba.png");
 
-
-
     Texture2D municao_mapa_image = LoadTexture("./bomba/municao.png");
-
 
     porta_saida.imagem = LoadTexture("porta.png");
 
@@ -317,31 +325,31 @@ int main()
     //carregando os caixotes referentes ao mapa1.
     construcao_paredes(obstaculos,positions,parede_obstaculo1,tam);
 
-    //carregando baus
-    int aleatorio;
-    bool chave_true = true;
-
+    Vector2 positions_baus[] =  {{64,523},
+                                {115,156},
+                                {841,200},
+                                {358,526},
+                                {840,613},
+                                {453,248},
+                                {18,524},
+                                {673,248},
+                                {553,434},
+                                {745,20},
+                                {405,18}};
+    int baus_itens[] = {1,1,2,2,2,3,3,3,1,2,3,2};
+    int tam_bau = sizeof(positions_baus)/8;
+    Tbaus bau[tam_bau];
+    //Posicionando baus no jogo
     posicionamento_bau(bau,positions_baus,baus_fechados,tam_bau);
+    //carregamento dos baus no mapa
     carregamento_bau(bau,baus_itens,tam_bau);
 
-    //Carregando baus - colocando determinado item no baú.
-    /*for(int contador  = 0; contador < tam_bau; contador++)
-    {
-        int vazio = 0;
-        while(vazio == 0)
-        {
-            aleatorio = rand()%12;
-            if(bau[aleatorio].tipo == 0)
-            {
-                bau[aleatorio].tipo = baus[contador];
-                vazio = 1;
-            }
-        }
-    }*/
+
 
 
     Tinimigo inimigos[qte_inimigos];
-
+    carregamento_inimigos(inimigos,positions_inim,monstro_mapa, monstro_mapa2,qte_inimigos);
+    /*
     for(int contador = 0; contador < qte_inimigos; contador++)
     {
         inimigos[contador].dimen = (Rectangle){positions_inim[contador].x,positions_inim[contador].y, tam_width, tam_height};
@@ -358,7 +366,7 @@ int main()
             inimigos[contador].deslocamentoy = 6;
            inimigos[contador].imagem = monstro_mapa2;
         }
-    }
+    }*/
     //Inicializando balas.
     for(int contagem  = 0; contagem < 50; contagem++)
     {
@@ -380,7 +388,7 @@ int main()
     char qte_balas_impressao[15];
     //Inicio jogo.
     int x = 20, y = 5;
-    int qte_balas = 6, indice = 0, bala_disparada, balas_no_jogo = 0, balas_que_eu_tive_acesso = 10, qte_inimigos_mortos = 0, a = 0;
+    int indice = 0, bala_disparada, balas_no_jogo = 0, aleatorio, balas_que_eu_tive_acesso = 10, qte_inimigos_mortos = 0, a = 0;
     t = clock();
     while(!WindowShouldClose())
     {
