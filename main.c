@@ -71,13 +71,62 @@ typedef struct
     Rectangle dimen;
     Texture2D imagem;
 }Tporta;
-typedef struct
+
+void construcao_paredes(Tobstaculos* paredes,Vector2* positions_parede, Texture2D imagem_parede, int qte_paredes)
 {
-    Vector2 position;
-    bool existe;
-    float deslocamento_x;
-    float deslocamento_y;
-}Tbala;
+    int contador = 0;
+    for(contador = 0, paredes, positions_parede; contador < qte_paredes; contador++, paredes++,positions_parede++)
+    {
+        paredes->dimen = (Rectangle){positions_parede->x - 6,positions_parede->y - 8, 60.0, 48.0};
+        paredes->imagem = imagem_parede;
+    }
+}
+
+void posicionamento_bau(Tbaus* baus,Vector2* position_bau, Texture2D imagem_bau, int qte_baus)
+{
+    int contador = 0;
+    for(contador, baus, position_bau; contador < qte_baus; contador++, baus++, position_bau++)
+    {
+        baus->dimen = (Rectangle){position_bau->x - 6,position_bau->y - 6, 48.0, 48.0};
+        baus->imagem = imagem_bau;
+        baus->tipo = 0;
+        baus->chave = false;
+        baus->aberto = false;
+    }
+}
+
+void carregamento_bau(Tbaus* Pbaus, int* Pitem_bau, int qte_baus)
+{
+    int contador = 0, aleatorio;
+    int* ponteiro_inicial = Pbaus;
+    bool chave_true = true;
+    for(contador,Pitem_bau; contador < qte_baus; contador++, Pitem_bau++)
+    {
+        int vazio = 0;
+        while(vazio == 0)
+        {
+            Pbaus = ponteiro_inicial;
+            aleatorio = rand() % 12;
+            Pbaus += aleatorio;
+            if(Pbaus->tipo == 0)
+            {
+                Pbaus->tipo = *Pitem_bau;
+                vazio = 1;
+                Pbaus = ponteiro_inicial;
+            }
+        }
+    }
+    while(chave_true)
+    {
+        aleatorio = rand() % 12;
+        Pbaus += aleatorio;
+        if(Pbaus->tipo == 1)
+        {
+            chave_true = false;
+            Pbaus->chave = true;
+        }
+    }
+}
 int main()
 {
     clock_t t = clock();
@@ -205,7 +254,7 @@ int main()
                                     {864,114},
                                     {67,247}};
      int qte_inimigos = sizeof(positions_inim)/8;
-     int baus[] = {1,1,2,2,2,3,3,3,1,2,3,2};
+     int baus_itens[] = {1,1,2,2,2,3,3,3,1,2,3,2};
     //1-chave
     //2-monstro
     //3-vida
@@ -215,6 +264,10 @@ int main()
     int tam_bau = sizeof(positions_baus)/8;
     Tobstaculos obstaculos[tam];
     Tbaus bau[tam_bau];
+
+    Texture2D parede_obstaculo1 = LoadTexture("obstaculo.png");
+
+    Texture2D baus_fechados = LoadTexture("baufechado.png");
 
     Texture2D textura = LoadTexture("900x682.png");
 
@@ -248,6 +301,7 @@ int main()
     Texture2D bala = LoadTexture("./bomba/bomba.png");
 
 
+
     Texture2D municao_mapa_image = LoadTexture("./bomba/municao.png");
 
 
@@ -260,28 +314,18 @@ int main()
 
     SetTargetFPS(10);
 
-
-    //Construção de paredes
-
-    for(int contador  = 0; contador < tam; contador++)
-    {
-        obstaculos[contador].dimen = (Rectangle){positions[contador].x-6,positions[contador].y-8,60.0,48.0};
-        obstaculos[contador].imagem = LoadTexture("obstaculo.png");
-    }
+    //carregando os caixotes referentes ao mapa1.
+    construcao_paredes(obstaculos,positions,parede_obstaculo1,tam);
 
     //carregando baus
     int aleatorio;
     bool chave_true = true;
-     for(int contador  = 0; contador < tam_bau; contador++)
-    {
-        bau[contador].dimen = (Rectangle){positions_baus[contador].x-6,positions_baus[contador].y-6,49.0,48.0};
-        bau[contador].imagem = LoadTexture("baufechado.png");
-        bau[contador].tipo = 0;
-        bau[contador].chave = false;
-        bau[contador].aberto = false;
-    }
+
+    posicionamento_bau(bau,positions_baus,baus_fechados,tam_bau);
+    carregamento_bau(bau,baus_itens,tam_bau);
+
     //Carregando baus - colocando determinado item no baú.
-    for(int contador  = 0; contador < tam_bau; contador++)
+    /*for(int contador  = 0; contador < tam_bau; contador++)
     {
         int vazio = 0;
         while(vazio == 0)
@@ -293,16 +337,8 @@ int main()
                 vazio = 1;
             }
         }
-    }
-    while(chave_true)
-    {
-        aleatorio = rand() % 8;
-        if(bau[aleatorio].tipo == 1)
-        {
-            chave_true = false;
-            bau[aleatorio].chave = true;
-        }
-    }
+    }*/
+
 
     Tinimigo inimigos[qte_inimigos];
 
