@@ -276,46 +276,46 @@ int main()
     Tobstaculos obstaculos[tam];
 
 
-    Texture2D parede_obstaculo1 = LoadTexture("obstaculo.png");
+    Texture2D parede_obstaculo1 = LoadTexture("./Imagens/obstaculo.png");
 
-    Texture2D baus_fechados = LoadTexture("baufechado.png");
+    Texture2D baus_fechados = LoadTexture("./Imagens/baufechado.png");
 
-    Texture2D textura = LoadTexture("900x682.png");
+    Texture2D textura = LoadTexture("./Imagens/900x682.png");
 
-    Texture2D desce0 = LoadTexture("./personagem/desce1.png");
-    Texture2D desce1 = LoadTexture("./personagem/desce2.png");
-    Texture2D desce2 = LoadTexture("./personagem/desce3.png");
-    Texture2D desce3 = LoadTexture("./personagem/desce4.png");
+    Texture2D desce0 = LoadTexture("./Imagens/personagem/desce1.png");
+    Texture2D desce1 = LoadTexture("./Imagens/personagem/desce2.png");
+    Texture2D desce2 = LoadTexture("./Imagens/personagem/desce3.png");
+    Texture2D desce3 = LoadTexture("./Imagens/personagem/desce4.png");
 
-    Texture2D direita1 = LoadTexture("./personagem/direita1.png");
-    Texture2D direita2 = LoadTexture("./personagem/direita2.png");
-    Texture2D direita3 = LoadTexture("./personagem/direita3.png");
-    Texture2D direita4 = LoadTexture("./personagem/direita4.png");
+    Texture2D direita1 = LoadTexture("./Imagens/personagem/direita1.png");
+    Texture2D direita2 = LoadTexture("./Imagens/personagem/direita2.png");
+    Texture2D direita3 = LoadTexture("./Imagens/personagem/direita3.png");
+    Texture2D direita4 = LoadTexture("./Imagens/personagem/direita4.png");
 
-    Texture2D esquerda1 = LoadTexture("./personagem/esquerda1.png");
-    Texture2D esquerda2 = LoadTexture("./personagem/esquerda2.png");
-    Texture2D esquerda3 = LoadTexture("./personagem/esquerda3.png");
-    Texture2D esquerda4 = LoadTexture("./personagem/esquerda4.png");
+    Texture2D esquerda1 = LoadTexture("./Imagens/personagem/esquerda1.png");
+    Texture2D esquerda2 = LoadTexture("./Imagens/personagem/esquerda2.png");
+    Texture2D esquerda3 = LoadTexture("./Imagens/personagem/esquerda3.png");
+    Texture2D esquerda4 = LoadTexture("./Imagens/personagem/esquerda4.png");
     //leitura
-    Texture2D sobe1 = LoadTexture("./personagem/sobe1.png");
-    Texture2D sobe2 = LoadTexture("./personagem/sobe2.png");
-    Texture2D sobe3 = LoadTexture("./personagem/sobe3.png");
-    Texture2D sobe4 = LoadTexture("./personagem/sobe4.png");
+    Texture2D sobe1 = LoadTexture("./Imagens/personagem/sobe1.png");
+    Texture2D sobe2 = LoadTexture("./Imagens/personagem/sobe2.png");
+    Texture2D sobe3 = LoadTexture("./Imagens/personagem/sobe3.png");
+    Texture2D sobe4 = LoadTexture("./Imagens/personagem/sobe4.png");
     //leitura monstro mapa
-    Texture2D monstro_mapa = LoadTexture("./monstros/monstromapa.png");
-    Texture2D monstro_mapa2 = LoadTexture("./monstros/monstromapa2.png");
+    Texture2D monstro_mapa = LoadTexture("./Imagens/monstros/monstromapa.png");
+    Texture2D monstro_mapa2 = LoadTexture("./Imagens/monstros/monstromapa2.png");
     //Leitura de imagens correspondentes a munição, bomba e efeitos de explosões.
-    Texture2D explosao[4] = {LoadTexture("./bomba/explosao1.png"),
-                            LoadTexture("./bomba/explosao2.png"),
-                            LoadTexture("./bomba/explosao3.png"),
-                            LoadTexture("./bomba/explosao4.png")};
-    Texture2D bala = LoadTexture("./bomba/bomba.png");
+    Texture2D explosao[4] = {LoadTexture("./Imagens/bomba/explosao1.png"),
+                            LoadTexture("./Imagens/bomba/explosao2.png"),
+                            LoadTexture("./Imagens/bomba/explosao3.png"),
+                            LoadTexture("./Imagens/bomba/explosao4.png")};
+    Texture2D bala = LoadTexture("./Imagens/bomba/bomba.png");
 
-    Texture2D municao_mapa_image = LoadTexture("./bomba/municao.png");
+    Texture2D municao_mapa_image = LoadTexture("./Imagens/bomba/municao.png");
 
-    porta_saida.imagem = LoadTexture("porta.png");
+    porta_saida.imagem = LoadTexture("./Imagens/porta.png");
 
-    Texture2D vida = LoadTexture("vida.png");
+    Texture2D vida = LoadTexture("./Imagens/vida.png");
 
 
 
@@ -349,24 +349,6 @@ int main()
 
     Tinimigo inimigos[qte_inimigos];
     carregamento_inimigos(inimigos,positions_inim,monstro_mapa, monstro_mapa2,qte_inimigos);
-    /*
-    for(int contador = 0; contador < qte_inimigos; contador++)
-    {
-        inimigos[contador].dimen = (Rectangle){positions_inim[contador].x,positions_inim[contador].y, tam_width, tam_height};
-        inimigos[contador].vivo = true;
-        if(contador%2 == 0)
-        {
-            inimigos[contador].deslocamentox = 6;
-            inimigos[contador].deslocamentoy = 0;
-            inimigos[contador].imagem = monstro_mapa;
-        }
-        else
-        {
-            inimigos[contador].deslocamentox = 0;
-            inimigos[contador].deslocamentoy = 6;
-           inimigos[contador].imagem = monstro_mapa2;
-        }
-    }*/
     //Inicializando balas.
     for(int contagem  = 0; contagem < 50; contagem++)
     {
